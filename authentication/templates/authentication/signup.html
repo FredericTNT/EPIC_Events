@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load form_extras %}
+{% load static %}
+
+{% block content %}
+<div id="Auth_app">
+
+    <div class="Titre_bloc">Créer votre compte</div>
+
+    <div class="Formulaire_bloc">
+        <div class="Infos_bloc">
+            {% if form.errors %}
+            <p> {{ form.errors|first_error_message }} </p>
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <form id="register" method="post">
+            <p class="Form_align">
+                {{ form.email.label_tag }}<br>
+                {{ form.email }}</p>
+            <p class="Form_align">
+                {{ form.username.label_tag }}<br>
+                {{ form.username }}
+                <img id="helpUsername" src="{% static 'img/help.png' %}" alt="aide" width="16px" height="16px"></p>
+                <div id="HelpText_username">
+                    {{ form.username.help_text }}
+                </div>
+            <p class="Form_align">
+                {{ form.first_name.label_tag }}<br>
+                {{ form.first_name }}</p>
+            <p class="Form_align">
+                {{ form.last_name.label_tag }}<br>
+                {{ form.last_name }}</p>
+            <p class="Form_align">
+                {{ form.password1.label_tag }}<br>
+                {{ form.password1 }}
+                <img id="helpPassword" src="{% static 'img/help.png' %}" alt="aide" width="16px" height="16px"></p>
+                <div id="HelpText_password">
+                    {{ form.password1.help_text }}
+                </div>
+            <p class="Form_align">
+                {{ form.password2.label_tag }}<br>
+                {{ form.password2 }}</p>
+            {% csrf_token %}
+            <div id="NavForm">
+                <button type="submit" >Valider</button>
+                <button> <a class="bouton-href" href="{% url 'login-view' %}">Annuler</a> </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/help.js' %}"></script>
+{% endblock content %}

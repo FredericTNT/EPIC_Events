@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="Auth_app">
+
+    <div class="Titre_bloc">Bienvenue</div>
+
+    <div class="Formulaire_bloc">
+        <div class="Infos_bloc">
+            {% if form.errors %}
+            <p>Email ou mot de passe invalides. Veuillez saisir de nouveau ces informations.</p>
+            {% endif %}
+            {% if next %}
+                {% if user.is_authenticated %}
+                <p>Votre compte n'a pas accès à cette page, veuillez vous connecter avec un compte autorisé.</p>
+                {% else %}
+                <p>Veuillez vous connecter pour accéder à cette page.</p>
+                {% endif %}
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <form id="connexion" method="post">
+            <p class="Form_align">
+                {{ form.username.label_tag }}<br>
+                {{ form.username }}</p>
+            <p class="Form_align">
+                {{ form.password.label_tag }}
+                {{ form.password }}</p>
+            {% csrf_token %}
+            <button type="submit" >Connexion</button>
+        </form>
+        <br><a id="ForgotPSW" href="{% url 'login-view' %}">Mot de passe oublié</a><hr>
+        <p id="NewTNTmyLC">Nouveau chez EPIC Events ?</p>
+        <button id="LinkSignUp">
+            <a class="bouton-href" href="{% url 'signup' %}">Créer votre compte</a>
+        </button>
+    </div>
+</div>
+{% endblock %}

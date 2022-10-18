@@ -1,0 +1,84 @@
+#Auth_app {
+    width: 290px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+}
+button {
+    background: #4DB6AC;
+    border: 1px #009688 solid;
+    border-radius: 3px;
+    padding: 4px;
+    color: white;
+    font-size: 0.875rem;
+}
+button:hover,
+button:focus,
+#LinkSignUp:hover,
+#LinkSignUp:focus {
+    background: #009688;
+}
+.bouton-href {
+    text-decoration: none;
+    color: white;
+    cursor: default;
+}
+.Titre_bloc {
+    padding: 10px 10px 10px 10px;
+    background: #009688;
+    text-align: center;
+    font-size: 1.125rem;
+    color: white;
+}
+.Formulaire_bloc {
+    padding: 10px 10px 10px 10px;
+    background: ghostWhite;
+    font-size: 0.875rem;
+    text-align: left;
+}
+.Infos_bloc {
+    font-size: 0.8rem;
+    color: IndianRed;
+    font-style: italic;
+    text-align: left;
+}
+.Form_align {
+    text-align: left;
+}
+#HelpText_password, #HelpText_username {
+    display: none;
+    color : darkblue;
+    font-style: italic;
+    font-size: 0.8rem;
+    border: 1px darkblue solid;
+    border-radius: 3px;
+    padding: 5px;
+    width: 260px;
+}
+#HelpText_password ul {
+    padding-inline-start: 15px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+#helpPassword, #helpUsername {
+    vertical-align: middle;
+}
+#ForgotPSW {
+    font-size: 0.7rem;
+}
+#id_username, #id_password, #id_email, #id_password1, #id_password2{
+    width: 240px;
+}
+#id_first_name, #id_last_name {
+    width: 200px;
+}
+#NewTNTmyLC {
+    text-align: center;
+    font-size: 0.8rem;
+}
+#LinkSignUp {
+    background: #90A4AE;
+    border: 1px #90A4AE solid;
+    width: 100%;
+}

@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hello {{ user.username }},
+
+Merci de cliquer sur le lien ci-dessous pour confirmer votre inscription (durée de validité - 20 minutes).
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<button id="Logout">
+    <a class="bouton-href" href="{% url 'logout-view' %}">Me déconnecter</a>
+</button>
+{% endblock %}
