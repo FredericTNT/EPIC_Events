@@ -3,7 +3,13 @@
 
 {% block content %}
 
-<button id="Logout">
-    <a class="bouton-href" href="{% url 'logout-view' %}">Me déconnecter</a>
-</button>
+<div id="Events_App">
+
+    <img id="fleurs" src="{% static 'img/FleursDesChamps.jpg' %}" alt="Fleurs" width="600px">
+    <button id="Logout">
+        <a class="bouton-href" href="{% url 'logout' %}">Me déconnecter</a>
+    </button>
+
+</div>
+
 {% endblock %}

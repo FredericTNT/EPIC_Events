@@ -82,3 +82,8 @@ button:focus,
     border: 1px #90A4AE solid;
     width: 100%;
 }
+#Events_App {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}

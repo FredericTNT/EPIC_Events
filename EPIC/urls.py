@@ -18,10 +18,15 @@ from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from authentication.views import SignUpView, ActivateAccount, SignUp
-from events.views import PresentationView
+from events.views import PresentationView, ClientViewset
+
+
+router = routers.SimpleRouter()
+router.register('client', ClientViewset, basename='client')
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/TNTmyLC_ico.svg')), name='ico'),
@@ -29,10 +34,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('', LoginView.as_view(template_name='authentication/login.html'), name='login-view'),
     path('home/', PresentationView.as_view(), name='home'),
-    path('logout/', LogoutView.as_view(template_name='authentication/logout.html'), name='logout-view'),
+    path('logout/', LogoutView.as_view(template_name='authentication/logout.html'), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('api/signup/', SignUp.as_view(), name='register'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/', include(router.urls)),
 ]
