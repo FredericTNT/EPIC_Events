@@ -20,10 +20,12 @@ class PresentationView(LoginRequiredMixin, View):
 class ClientFilter(df.FilterSet):
     min_id = df.NumberFilter(field_name='id', lookup_expr='gte')
     max_id = df.NumberFilter(field_name='id', lookup_expr='lte')
+    year_created = df.NumberFilter(field_name='date_created', lookup_expr='year__exact')
+    start_last_name = df.CharFilter(field_name='last_name', lookup_expr='istartswith')
 
     class Meta:
         model = Client
-        fields = ['id', 'last_name', 'first_name', 'sales_contact']
+        fields = ['id', 'first_name', 'last_name', 'sales_contact']
 
 
 class ClientViewset(ModelViewSet):
