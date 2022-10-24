@@ -22,11 +22,13 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from authentication.views import SignUpView, ActivateAccount, SignUp
-from events.views import PresentationView, ClientViewset
+from events.views import PresentationView, ClientViewset, ContractViewset, EventViewset
 
 
 router = routers.SimpleRouter()
 router.register('client', ClientViewset, basename='client')
+router.register('contract', ContractViewset, basename='contract')
+router.register('event', EventViewset, basename='event')
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/TNTmyLC_ico.svg')), name='ico'),
