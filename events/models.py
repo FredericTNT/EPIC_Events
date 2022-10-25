@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
+
 from authentication.models import User
+from events.validators import validate_sales_contact, validate_support_contact
 
 
 class Client(models.Model):
@@ -16,7 +18,8 @@ class Client(models.Model):
     company_name = models.CharField(max_length=250, verbose_name="Nom de l'entreprise")
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
-    sales_contact = models.ForeignKey(to=User, on_delete=models.SET_NULL, blank=True, null=True)
+    sales_contact = models.ForeignKey(to=User, on_delete=models.SET_NULL, blank=True, null=True,
+                                      validators=[validate_sales_contact])
 
     def __str__(self):
         return self.last_name
@@ -54,5 +57,6 @@ class Event(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
     status = models.ForeignKey(to=EventStatus, on_delete=models.SET_NULL, blank=True, null=True)
-    support_contact = models.ForeignKey(to=User, on_delete=models.SET_NULL, blank=True, null=True)
+    support_contact = models.ForeignKey(to=User, on_delete=models.SET_NULL, blank=True, null=True,
+                                        validators=[validate_support_contact])
     contract = models.OneToOneField(to=Contract, on_delete=models.CASCADE)
