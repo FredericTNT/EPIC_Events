@@ -125,3 +125,59 @@ class TestEvents:
         expected_response = "3500.78"
         assert response.status_code == 201
         assert response.data['amount'] == expected_response
+
+    def test_create_contract_fail_team(self, mocker):
+        data_contract = {'amount': "3500.78", 'payment_due': "2023-07-22", 'status': False, 'client': 2}
+
+        mocker.patch('rest_framework.permissions.DjangoModelPermissions.has_permission', return_value=True)
+        mocker.patch('events.permissions.IsChangeContractAuthorized.has_permission', return_value=False)
+
+        url = reverse('contract-list')
+        response = self.client.post(url, data_contract, format='json')
+        assert response.status_code == 403
+        data = response.data['detail'][0].title()
+        expected_response = "Vous n'avez pas la permission d'effectuer cette action"
+        assert data.find(expected_response)
+
+    def test_create_event_ok(self, mocker):
+        data_event = {'date_event': "2023-07-22T22:00", 'guests': 61, 'notes': "Anniversaire surprise !...",
+                      'status': 2, 'support_contact': 3, 'contract': 3}
+
+        mocker.patch('rest_framework.permissions.DjangoModelPermissions.has_permission', return_value=True)
+        mocker.patch('events.permissions.IsChangeEventAuthorized.has_permission', return_value=True)
+
+        url = reverse('event-list')
+        response = self.client.post(url, data_event, format='json')
+        expected_response = 61
+        assert response.status_code == 201
+        assert response.data['guests'] == expected_response
+
+    def test_create_event_fail_team(self, mocker):
+        data_event = {'date_event': "2023-07-22T22:00", 'guests': 61, 'notes': "Anniversaire surprise !...",
+                      'status': 2, 'support_contact': 3, 'contract': 3}
+
+        mocker.patch('rest_framework.permissions.DjangoModelPermissions.has_permission', return_value=True)
+        mocker.patch('events.permissions.IsChangeEventAuthorized.has_permission', return_value=False)
+
+        url = reverse('event-list')
+        response = self.client.post(url, data_event, format='json')
+        assert response.status_code == 403
+        data = response.data['detail'][0].title()
+        expected_response = "Vous n'avez pas la permission d'effectuer cette action"
+        assert data.find(expected_response)
+
+    def test_create_event_fail_authorization(self, mocker):
+        data_event = {'date_event': "2023-07-22T22:00", 'guests': 61, 'notes': "Anniversaire surprise !...",
+                      'status': 2, 'support_contact': 3, 'contract': 3}
+
+        mocker.patch('rest_framework.permissions.DjangoModelPermissions.has_permission', return_value=True)
+        mocker.patch('events.permissions.IsChangeEventAuthorized.has_permission', return_value=True)
+
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ')
+
+        url = reverse('event-list')
+        response = self.client.post(url, data_event, format='json')
+        assert response.status_code == 401
+        data = response.data['code'][0].title()
+        expected_response = "bad_authorization_header"
+        assert data.find(expected_response)
