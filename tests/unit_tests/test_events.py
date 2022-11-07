@@ -10,10 +10,15 @@ class TestEvents:
 
     client = APIClient()
 
-    def test_user_count(self):
-        utilisateurs = User.objects.count()
-        expected_response = 4
-        assert utilisateurs == expected_response
+    def test_environment(self):
+        utilisateur = User.objects.get(email="a@b.com")
+        expected_response = "Guillaume_le_conquérant"
+        assert utilisateur.username == expected_response
+        url = reverse('token_obtain_pair')
+        response = self.client.post(url, {'email': "a@b.com", 'password': "s3cr3T!78"}, format='json')
+        assert response.status_code == 200
+        jwt = response.data['access']
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + jwt)
 
     def test_register_ok(self):
         data_user = {'email': "TNT@Cameroun.com", 'username': "Perroquette_du_Gabon",
@@ -54,8 +59,7 @@ class TestEvents:
         url = reverse('token_obtain_pair')
         response = self.client.post(url, {'email': "a@b.com", 'password': "s3cr3T!78"}, format='json')
         assert response.status_code == 200
-        jwt = response.data['access']
-        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + jwt)
+        assert response.data['access'] is not None
 
     def test_token_fail_email(self):
         url = reverse('token_obtain_pair')
@@ -166,17 +170,11 @@ class TestEvents:
         expected_response = "Vous n'avez pas la permission d'effectuer cette action"
         assert data.find(expected_response)
 
-    def test_create_event_fail_authorization(self, mocker):
-        data_event = {'date_event': "2023-07-22T22:00", 'guests': 61, 'notes': "Anniversaire surprise !...",
-                      'status': 2, 'support_contact': 3, 'contract': 3}
-
-        mocker.patch('rest_framework.permissions.DjangoModelPermissions.has_permission', return_value=True)
-        mocker.patch('events.permissions.IsChangeEventAuthorized.has_permission', return_value=True)
-
+    def test_list_events_fail_authorization(self, mocker):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ')
 
         url = reverse('event-list')
-        response = self.client.post(url, data_event, format='json')
+        response = self.client.get(url)
         assert response.status_code == 401
         data = response.data['code'][0].title()
         expected_response = "bad_authorization_header"
