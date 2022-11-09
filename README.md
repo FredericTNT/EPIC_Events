@@ -9,9 +9,10 @@
 1. [Informations générales](#Informations-générales)
 2. [Technologies](#Technologies)
 3. [Installation](#Installation)
-4. [Exécution](#Exécution)
-5. [Vue générale des API](#Screenshot)
-6. [Conformité du code aux directives PEP 8](#Conformité-PEP-8)
+4. [Paramétrage](#Paramétrage)
+5. [Exécution](#Exécution)
+6. [Vue générale des API et documentation](#Screenshot)
+7. [Conformité du code aux directives PEP 8](#Conformité-PEP-8)
 
 ## Informations générales
 ***
@@ -34,7 +35,7 @@ Technologies ou packages majeurs utilisés dans ce projet :
 
 ## Installation
 ***
-Réaliser l'installation sous Windows avec le terminal PowerShell 
+Réalisez l'installation sous Windows avec le terminal PowerShell 
 
 Le clonage (git clone) se fait dans un répertoire EPIC_Events. Installez les dépendances du projet après 
 avoir généré et activé l'environnement virtuel.
@@ -46,15 +47,15 @@ $ venv/Scripts/activate
 (venv)$ pip install -r requirements.txt
 ```
 Rendez-vous dans l'outil d'administration de votre serveur de bases de données postgreSQL et créez une base vide
-**EPIC** selon la description figurant dans le fichier **settings.py** du projet (vous pouvez modifier ces
-attributs avec vos propres paramètres).
+**EPIC** avec les valeurs de 'USER', 'PASSWORD', 'PORT' figurant dans le fichier **settings.py** du projet
+(vous pouvez également modifier ces valeurs avec vos propres paramètres).
 ```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'EPIC',
-        'USER': 'postgres',
-        'PASSWORD': 'Annecy!74',
+        'USER': 'OpenClassrooms',
+        'PASSWORD': 's3cr3T',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -65,6 +66,20 @@ de migration automatique.
 ```
 (venv)$ python manage.py makemigrations
 (venv)$ python manage.py migrate
+```
+
+## Paramétrage
+***
+Au niveau des autorisations utilisateurs, l'application repose sur l'affectation de permissions pour chaque objet CRM
+(Client, Contract, Event) dans des groupes d'utilisateurs. Deux groupes doivent exister (équipe commerciale et équipe
+support) et leur nom par défaut est paramétrable dans le fichier **settings.py** du projet. Il est nécessaire que
+les noms soient identiques dans le fichier et dans la table GROUPE accessible via le site d'administration.
+
+```
+TEAMS = {
+    'SALES': 'Sales',
+    'SUPPORT': 'Support',
+}
 ```
 
 ## Exécution

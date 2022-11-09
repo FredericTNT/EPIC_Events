@@ -56,6 +56,18 @@ def test_api_experience():
     assert response.data['count'] == expected_response
     print(url, "Clients list... OK")
 
+#   Refus mise à jour du contact commercial du client DC@magic.com
+    data_client = {'first_name': "David", 'last_name': "Copperfield", 'email': "DC@magic.com", 'sales_contact': 3,
+                   'phone': "+33112345678", 'mobile': "+33612345678", 'company_name': "The New Magic World"}
+
+    url = reverse('client-detail', kwargs={'pk': id_new_client})
+    response = client.put(url, data_client, format='json')
+    assert response.status_code == 400
+    data = response.data['sales_contact'][0].title()
+    expected_response = "Le contact doit appartenir à l'équipe commerciale"
+    assert data.find(expected_response)
+    print(url, "Update Client sales_contact Fail... OK")
+
 #   Mise à jour du contact commercial (a@b.com) du client DC@magic.com
     data_client = {'first_name': "David", 'last_name': "Copperfield", 'email': "DC@magic.com", 'sales_contact': 2,
                    'phone': "+33112345678", 'mobile': "+33612345678", 'company_name': "The Magic World"}

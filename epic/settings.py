@@ -85,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'EPIC',
-        'USER': 'postgres',
-        'PASSWORD': 'Annecy!74',
+        'USER': 'OpenClassrooms',
+        'PASSWORD': 's3cr3T',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -158,4 +158,10 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+# Paramètres de l'application events
+TEAMS = {
+    'SALES': 'Sales',
+    'SUPPORT': 'Support',
 }
