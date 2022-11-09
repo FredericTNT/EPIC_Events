@@ -11,7 +11,7 @@
 3. [Installation](#Installation)
 4. [Paramétrage](#Paramétrage)
 5. [Exécution](#Exécution)
-6. [Vue générale des API et documentation](#Screenshot)
+6. [Vue générale des API et documentation](#Documentation-API)
 7. [Conformité du code aux directives PEP 8](#Conformité-PEP-8)
 
 ## Informations générales
@@ -93,13 +93,13 @@ Le serveur d'application se lance en exécutant le programme manage.py dans l'en
 Lorsque le serveur fonctionne, l'application est accessible via un navigateur web à l'url suivante :
 http://localhost:8000/
 
-## Screenshot
+## Documentation API
 ***
 API - Collection Postman
 
-<img src="static/screenshot/postman.jpg" alt="collection" />
+<img src="static/screenshot/Postman.jpg" alt="collection" />
 
->[Documentation Postman des API](https://documenter.getpostman.com/view/)
+**Postman** [Documentation des API](https://documenter.getpostman.com/view/19243581/2s8YeixwEX)
 
 ## Conformité PEP 8
 ***
