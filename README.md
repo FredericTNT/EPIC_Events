@@ -72,8 +72,8 @@ de migration automatique.
 ***
 Au niveau des autorisations utilisateurs, l'application repose sur l'affectation de permissions pour chaque objet CRM
 (Client, Contract, Event) dans des groupes d'utilisateurs. Deux groupes doivent exister (équipe commerciale et équipe
-support) et leur nom par défaut est paramétrable dans le fichier **settings.py** du projet. Il est nécessaire que
-les noms soient identiques dans le fichier et dans la table GROUPE accessible via le site d'administration.
+support) et leur nom est paramétrable dans le fichier **settings.py** du projet. Il est nécessaire que les noms soient
+identiques dans le fichier et dans la table GROUPE accessible via le site d'administration.
 
 ```
 TEAMS = {
