@@ -21,7 +21,7 @@ from django.views.generic.base import RedirectView
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from authentication.views import SignUpView, ActivateAccount, SignUp
+from authentication.views import SignUpView, ActivateAccount, SignUp, UserList, UserDetail
 from events.views import PresentationView, ClientViewset, ContractViewset, EventViewset
 
 
@@ -42,5 +42,7 @@ urlpatterns = [
     path('api/signup/', SignUp.as_view(), name='register'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/user/', UserList.as_view()),
+    path('api/user/<int:id_user>/', UserDetail.as_view()),
     path('api/', include(router.urls)),
 ]

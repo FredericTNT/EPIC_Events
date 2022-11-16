@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer, ValidationError, CharField
 from django.contrib.auth.password_validation import validate_password
 
-from authentication.models import User
+from authentication.models import User, Group
 
 
 class RegisterSerializer(ModelSerializer):
@@ -29,3 +29,26 @@ class RegisterSerializer(ModelSerializer):
         user.is_active = True
         user.save()
         return user
+
+
+class GroupSerializer(ModelSerializer):
+
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+
+
+class UserSerializer(ModelSerializer):
+
+    groups = GroupSerializer(many=False)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'username', 'groups']
+
+
+class UpdateUsersGroupsSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'groups']
