@@ -25,7 +25,7 @@ class ClientFilter(df.FilterSet):
 
     class Meta:
         model = Client
-        fields = ['id', 'first_name', 'last_name', 'sales_contact']
+        fields = ['id', 'first_name', 'last_name', 'sales_contact', 'prospect', 'commercial']
 
 
 class ClientViewset(ModelViewSet):
