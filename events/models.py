@@ -16,7 +16,7 @@ class Client(models.Model):
     phone = models.CharField(validators=[phoneNumberRegex], max_length=16, verbose_name="Téléphone fixe")
     mobile = models.CharField(validators=[phoneNumberRegex], max_length=16, verbose_name="Mobile")
     company_name = models.CharField(max_length=250, verbose_name="Nom de l'entreprise")
-    prospect = models.BooleanField(verbose_name="Prospect")
+    prospect = models.BooleanField(verbose_name="Prospect", default=True)
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     date_updated = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
     commercial = models.ForeignKey(to=User, on_delete=models.SET_NULL, blank=True, null=True,
